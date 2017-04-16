@@ -6,6 +6,7 @@ repl-temp-*
 
 
 # output
-public
+public/elm.js
+public/index.html
 
 node_modules
