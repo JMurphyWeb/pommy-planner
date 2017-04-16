@@ -9,19 +9,25 @@ import Html.Attributes exposing (..)
 -- view
 view : Model -> Html Msg
 view model =
-  div []
+  div [ class "container" ]
+    [ taskForm(model)
+    , div [ class "time-grid" ] [(renderTasks model.tasks)]
+    ]
+
+taskForm : Model -> Html Msg
+taskForm model =
+  div [ class "task-form" ]
     [ (renderNewTaskForm model.new_task)
-    , a [ class "fl w-10 f6 link dim ba ph3 pv2 mb2 dib black", onClick AddPommy ] [ text "Add Pommy" ]
-    , (renderTasks model.tasks)
+    , button [ class "fl w-30 f6 link dim ba ph3 pv2 mb2 dib black", onClick AddPommy ] [ text "Add Pommy" ]
     ]
 
 renderTasks : List Task -> Html Msg
 renderTasks tasks =
-  ul [ class "fl w-70" ] (List.map renderTask tasks)
+  ul [ class "" ] (List.map renderTask tasks)
 
 renderTask : Task -> Html Msg
 renderTask t =
-  li [] [ text t.title, text (toString t.duration) ]
+  li [ class ("task t" ++ toString (t.duration)) ] [ text t.title, text (toString t.duration) ]
 
 renderNewTaskForm : Task -> Html Msg
 renderNewTaskForm new_task =
@@ -30,7 +36,7 @@ renderNewTaskForm new_task =
       else toString new_task.duration
   in
     div []
-      [ input [ class "fl w-10", type_ "text", placeholder "Task title", onInput Title, Html.Attributes.value new_task.title ] []
-      , input [ class "fl w-10", type_ "number", placeholder "Task duration", onInput Duration, Html.Attributes.value duration ] []
-      , button [ class "fl w-10 f6 link dim ba ph3 pv2 mb2 dib black", onClick AddTask, disabled ((String.isEmpty duration) || (String.isEmpty new_task.title)) ] [ text "Add Task" ]
+      [ input [ class "fl w-30", type_ "text", placeholder "Task title", onInput Title, value new_task.title ] []
+      , input [ class "fl w-30", type_ "number", placeholder "Task duration", onInput Duration, Html.Attributes.value duration ] []
+      , button [ class "fl w-30 f6 link dim ba ph3 pv2 mb2 dib black", onClick AddTask, disabled ((String.isEmpty duration) || (String.isEmpty new_task.title)) ] [ text "Add Task" ]
       ]
