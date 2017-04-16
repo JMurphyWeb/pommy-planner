@@ -37,6 +37,6 @@ renderNewTaskForm new_task =
   in
     div []
       [ input [ class "fl w-30", type_ "text", placeholder "Task title", onInput Title, value new_task.title ] []
-      , input [ class "fl w-30", type_ "number", placeholder "Task duration", onInput Duration, Html.Attributes.value duration ] []
+      , input [ class "fl w-30", type_ "number", placeholder "Task duration", onInput Duration, value duration ] []
       , button [ class "fl w-30 f6 link dim ba ph3 pv2 mb2 dib black", onClick AddTask, disabled ((String.isEmpty duration) || (String.isEmpty new_task.title)) ] [ text "Add Task" ]
       ]
